@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        .box-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .box {
+            text-align: center;
+            padding: 10px;
+            background-color: #004080;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .box:hover {
+            background-color: #00264d;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #004080;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>E-Content</h1>
+    </header>
+
+    <p>Access various educational materials:</p>
+    <div class="box-grid">
+        <a href="econtent/programming.html" class="box">Programming Basics</a>
+        <a href="econtent/robotics.html" class="box">Robotics</a>
+        <a href="econtent/3d-modeling.html" class="box">3D Modeling</a>
+    </div>
+
+    <a class="back-link" href="index.html">Back to Home</a>
+</body>
+</html>
