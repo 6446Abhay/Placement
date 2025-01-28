@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            color: #004080;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        section p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 15px 0;
+            text-decoration: none;
+            color: #004080;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #00264d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Placement Gallery</h1>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Our Placement Activities</h2>
+            <p>Explore the highlights of our successful placement drives and activities. These moments capture the journey of our students achieving their professional dreams.</p>
+            <a href="index.html" class="back-link">← Back to Services</a>
+            <div class="photo-grid">
+                <img src="images/placement1.jpg" alt="Placement Activity 1">
+                <img src="images/placement2.jpg" alt="Placement Activity 2">
+                <img src="images/placement3.jpg" alt="Placement Activity 3">
+                <img src="images/placement4.jpg" alt="Placement Activity 4">
+                <img src="images/placement5.jpg" alt="Placement Activity 5">
+                <img src="images/placement6.jpg" alt="Placement Activity 6">
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Your Website Name. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
