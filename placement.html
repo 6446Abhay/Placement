@@ -3,25 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel Data Viewer</title>
+    <title>School Details Viewer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Excel Data Viewer</h1>
+    <h1>School Details Viewer</h1>
     <input type="file" id="upload" accept=".xlsx" />
-    <table id="excelTable" border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Role</th>
-                <th>Department</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data will be populated here -->
-        </tbody>
-    </table>
+    <div id="schoolCards">
+        <!-- Cards will be dynamically populated here -->
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="script.js"></script>
 </body>
