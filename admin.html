@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Upload Excel</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .upload-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        input[type="file"] {
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #004080;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #003060;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Admin Panel</h1>
+    <div class="upload-box">
+        <h3>Upload Excel File</h3>
+        <input type="file" id="excelFile" accept=".xlsx">
+        <button onclick="uploadFile()">Upload & Save</button>
+    </div>
+
+    <script>
+        function uploadFile() {
+            const fileInput = document.getElementById('excelFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.readAsBinaryString(file);
+
+            reader.onload = function(e) {
+                localStorage.setItem("uploadedExcel", e.target.result);
+                alert("File uploaded successfully! Refresh the Placement Page to see changes.");
+            };
+        }
+    </script>
+
+</body>
+</html>
