@@ -3,97 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placement</title>
+    <title>Admin - Upload Excel</title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-        }
-
-        header {
-            background-color: #004080;
-            color: white;
-            padding: 20px 10px;
+            margin: 20px;
             text-align: center;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 500px;
             margin: auto;
-        }
-
-        .photo-card {
-            display: flex;
-            align-items: center;
+            padding: 20px;
             border: 1px solid #ddd;
-            background-color: #fff;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #f4f4f9;
         }
 
-        .photo-card img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-right: 20px;
+        input[type="file"] {
+            margin: 20px 0;
         }
 
-        .photo-card div {
-            flex: 1;
+        button {
+            background-color: #004080;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
         }
 
-        .photo-card p {
-            margin: 5px 0;
-            color: #555;
+        button:hover {
+            background-color: #002b50;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Placement Information</h1>
-    </header>
 
-    <div class="container" id="photo-container">
-        <p>Loading data...</p>
+    <h2>Admin - Upload Excel File</h2>
+    <div class="container">
+        <input type="file" id="uploadExcel">
+        <button onclick="uploadFile()">Upload & Save</button>
+        <p id="statusMessage"></p>
     </div>
 
     <script>
-        function loadExcel() {
-            const storedData = localStorage.getItem("placementData");
-            if (!storedData) {
-                alert("No placement data available. Please upload an Excel file in the Admin Panel.");
+        function uploadFile() {
+            const fileInput = document.getElementById("uploadExcel");
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select an Excel file.");
                 return;
             }
 
-            const data = JSON.parse(storedData);
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const jsonData = XLSX.utils.sheet_to_json(sheet);
 
-            const container = document.getElementById("photo-container");
-            container.innerHTML = ""; // Clear previous content
+                // Save data to localStorage
+                localStorage.setItem("placementData", JSON.stringify(jsonData));
 
-            data.forEach(item => {
-                const card = document.createElement("div");
-                card.className = "photo-card";
+                document.getElementById("statusMessage").innerText = "File uploaded successfully!";
+            };
 
-                card.innerHTML = `
-                    <img src="${item['Image URL']}" alt="${item['School Name']}">
-                    <div>
-                        <p><strong>School Name:</strong> ${item['School Name']}</p>
-                        <p><strong>Placement Available:</strong> ${item['Placement Available']}</p>
-                        <p><strong>Contact No:</strong> ${item['Contact No']}</p>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
+            reader.readAsArrayBuffer(file);
         }
-
-        loadExcel(); // Load the uploaded Excel data on page load
     </script>
+
 </body>
 </html>
