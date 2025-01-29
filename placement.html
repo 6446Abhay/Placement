@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Placement</title>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,82 +17,91 @@
             color: white;
             padding: 20px 10px;
             text-align: center;
+            font-size: 24px;
         }
 
-        .container {
-            max-width: 800px;
-            margin: auto;
+        .photo-library {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
         }
 
         .photo-card {
-            display: flex;
-            align-items: center;
-            border: 1px solid #ddd;
-            background-color: #fff;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            background-color: white;
             padding: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 320px;
         }
 
         .photo-card img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-right: 20px;
-        }
-
-        .photo-card div {
-            flex: 1;
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain; /* Ensures full image is visible */
+            border-radius: 8px;
+            background-color: #fff; /* Adds background if image has transparency */
         }
 
         .photo-card p {
-            margin: 5px 0;
-            color: #555;
+            margin: 8px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #004080;
+            text-decoration: none;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Placement Information</h1>
+        <h1>Placement</h1>
     </header>
 
-    <div class="container" id="photo-container">
-        <p>Loading data...</p>
+    <p style="text-align: center; font-size: 18px;">Check out our photo library showcasing placement activities:</p>
+
+    <div class="photo-library" id="photo-container">
+        <!-- Dynamic content will be inserted here -->
     </div>
 
+    <a class="back-link" href="index.html">Back to Home</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <script>
-        function loadExcel() {
+        async function loadExcel() {
             const storedData = localStorage.getItem("placementData");
             if (!storedData) {
-                alert("No placement data available. Please upload an Excel file in the Admin Panel.");
+                alert("No Excel file uploaded. Please upload one in the Admin Panel.");
                 return;
             }
 
-            const data = JSON.parse(storedData);
+            const jsonData = JSON.parse(storedData);
 
             const container = document.getElementById("photo-container");
-            container.innerHTML = ""; // Clear previous content
+            container.innerHTML = ""; // Clear old content
 
-            data.forEach(item => {
+            jsonData.forEach(item => {
                 const card = document.createElement("div");
                 card.className = "photo-card";
-
                 card.innerHTML = `
                     <img src="${item['Image URL']}" alt="${item['School Name']}">
-                    <div>
-                        <p><strong>School Name:</strong> ${item['School Name']}</p>
-                        <p><strong>Placement Available:</strong> ${item['Placement Available']}</p>
-                        <p><strong>Contact No:</strong> ${item['Contact No']}</p>
-                    </div>
+                    <p><strong>School Name:</strong> ${item['School Name']}</p>
+                    <p><strong>Placement Available:</strong> ${item['Placement Available']}</p>
+                    <p><strong>Contact No:</strong> ${item['Contact No']}</p>
                 `;
-
                 container.appendChild(card);
             });
         }
 
-        loadExcel(); // Load the uploaded Excel data on page load
+        loadExcel(); // Load the uploaded Excel file when the page opens
     </script>
 </body>
 </html>
