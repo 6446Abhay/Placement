@@ -3,72 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Upload Excel</title>
-    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <title>Admin Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
-            text-align: center;
-            padding: 50px;
+            padding: 20px;
         }
 
-        .upload-box {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1000px;
             margin: auto;
+            padding: 20px;
+        }
+
+        .file-upload {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
 
         input[type="file"] {
-            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
         }
 
-        button {
+        .upload-button {
             background-color: #004080;
             color: white;
-            border: none;
             padding: 10px 20px;
+            border: none;
             cursor: pointer;
-            margin-top: 10px;
-            border-radius: 5px;
         }
 
-        button:hover {
-            background-color: #003060;
+        .upload-button:hover {
+            background-color: #00264d;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Admin Dashboard</h1>
+    </header>
 
-    <h1>Admin Panel</h1>
-    <div class="upload-box">
-        <h3>Upload Excel File</h3>
-        <input type="file" id="excelFile" accept=".xlsx">
-        <button onclick="uploadFile()">Upload & Save</button>
+    <div class="container">
+        <h2>Upload Excel File to Update Placement Information</h2>
+        <div class="file-upload">
+            <input type="file" id="uploadFile" accept=".xlsx">
+            <button class="upload-button" onclick="uploadFile()">Upload</button>
+        </div>
+        <div id="uploadStatus" style="text-align: center; margin-top: 20px;"></div>
     </div>
 
     <script>
         function uploadFile() {
-            const fileInput = document.getElementById('excelFile');
-            const file = fileInput.files[0];
+            const file = document.getElementById("uploadFile").files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: "array" });
+                    const sheetName = workbook.SheetNames[0];
+                    const sheet = workbook.Sheets[sheetName];
+                    const jsonData = XLSX.utils.sheet_to_json(sheet);
 
-            if (!file) {
-                alert("Please select a file.");
-                return;
+                    // Call your function to update data on the placement page
+                    updatePlacementData(jsonData);
+                };
+                reader.readAsArrayBuffer(file);
             }
+        }
 
-            const reader = new FileReader();
-            reader.readAsBinaryString(file);
-
-            reader.onload = function(e) {
-                localStorage.setItem("uploadedExcel", e.target.result);
-                alert("File uploaded successfully! Refresh the Placement Page to see changes.");
-            };
+        function updatePlacementData(data) {
+            // This is just a placeholder function
+            // You would need to handle storing the data on a server or local storage
+            document.getElementById("uploadStatus").innerText = "Data uploaded successfully!";
         }
     </script>
-
 </body>
 </html>
