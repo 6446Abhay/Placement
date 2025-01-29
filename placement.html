@@ -1,30 +1,99 @@
-<script>
-    async function loadExcel() {
-        const storedData = localStorage.getItem("uploadedExcel");
-        if (!storedData) {
-            alert("No Excel file uploaded. Please upload one in the Admin Panel.");
-            return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
         }
 
-        const workbook = XLSX.read(storedData, { type: "binary" });
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        const data = XLSX.utils.sheet_to_json(sheet);
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
 
-        const container = document.getElementById("photo-container");
-        container.innerHTML = ""; // Clear old content
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
 
-        data.forEach(item => {
-            const card = document.createElement("div");
-            card.className = "photo-card";
-            card.innerHTML = `
-                <img src="${item['Image URL']}" alt="${item['School Name']}">
-                <p><strong>School Name:</strong> ${item['School Name']}</p>
-                <p><strong>Placement Available:</strong> ${item['Placement Available']}</p>
-                <p><strong>Contact No:</strong> ${item['Contact No']}</p>
-            `;
-            container.appendChild(card);
-        });
-    }
+        .photo-card {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-    loadExcel(); // Load the uploaded Excel file when the page opens
-</script>
+        .photo-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .photo-card div {
+            flex: 1;
+        }
+
+        .photo-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Placement Information</h1>
+    </header>
+
+    <div class="container" id="photo-container">
+        <p>Loading data...</p>
+    </div>
+
+    <script>
+        function loadExcel() {
+            const storedData = localStorage.getItem("placementData");
+            if (!storedData) {
+                alert("No placement data available. Please upload an Excel file in the Admin Panel.");
+                return;
+            }
+
+            const data = JSON.parse(storedData);
+
+            const container = document.getElementById("photo-container");
+            container.innerHTML = ""; // Clear previous content
+
+            data.forEach(item => {
+                const card = document.createElement("div");
+                card.className = "photo-card";
+
+                card.innerHTML = `
+                    <img src="${item['Image URL']}" alt="${item['School Name']}">
+                    <div>
+                        <p><strong>School Name:</strong> ${item['School Name']}</p>
+                        <p><strong>Placement Available:</strong> ${item['Placement Available']}</p>
+                        <p><strong>Contact No:</strong> ${item['Contact No']}</p>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        loadExcel(); // Load the uploaded Excel data on page load
+    </script>
+</body>
+</html>
