@@ -38,10 +38,11 @@
         }
 
         .photo-card img {
-            width: 300px;
-            height: 220px;
-            object-fit: cover;
+            width: 100%;
+            max-height: 250px;
+            object-fit: contain; /* Ensures full image is visible */
             border-radius: 8px;
+            background-color: #fff; /* Adds background if image has transparency */
         }
 
         .photo-card p {
