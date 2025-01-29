@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+
+        .photo-library {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .photo-card {
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 250px;
+        }
+
+        .photo-card img {
+            max-width: 100%;
+            border-radius: 5px;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .photo-card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #004080;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Placement</h1>
+    </header>
+
+    <p style="text-align: center;">Check out our photo library showcasing placement activities:</p>
+
+    <div class="photo-library">
+        <div class="photo-card">
+            <img src="images/placement1.jpg" alt="Placement Image 1">
+            <p><strong>School Name:</strong> ABC Public School</p>
+            <p><strong>Placement Available:</strong> Math Teacher</p>
+            <p><strong>Contact No:</strong> 9876543210</p>
+        </div>
+
+        <div class="photo-card">
+            <img src="images/placement2.jpg" alt="Placement Image 2">
+            <p><strong>School Name:</strong> XYZ High School</p>
+            <p><strong>Placement Available:</strong> Science Teacher</p>
+            <p><strong>Contact No:</strong> 9123456789</p>
+        </div>
+
+        <div class="photo-card">
+            <img src="images/placement3.jpg" alt="Placement Image 3">
+            <p><strong>School Name:</strong> LMN Academy</p>
+            <p><strong>Placement Available:</strong> English Teacher</p>
+            <p><strong>Contact No:</strong> 8765432109</p>
+        </div>
+    </div>
+
+    <a class="back-link" href="index.html">Back to Home</a>
+</body>
+</html>
+
